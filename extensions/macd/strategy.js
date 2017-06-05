@@ -54,7 +54,11 @@ module.exports = function container (get, set, clear) {
       if (typeof s.period.macd_histogram === 'number' && typeof s.lookback[0].macd_histogram === 'number') {
         if (s.period.macd_histogram > s.options.up_trend_threshold && (s.lookback[0].macd_histogram - s.options.up_trend_threshold) <= 0) {
           s.signal = 'buy';
+        } else if (s.lookback[0].macd_histogram <= 0 && (s.period.macd_histogram + s.lookback[0].macd_histogram) > s.options.up_trend_threshold){
+          s.signal = 'buy';
         } else if (s.period.macd_histogram < -s.options.down_trend_threshold && (s.lookback[0].macd_histogram + s.options.down_trend_threshold) >= 0) {
+          s.signal = 'sell';
+        } else if (s.lookback[0].macd_histogram >= 0 && (s.period.macd_histogram - s.lookback[0].macd_histogram) < -s.options.up_trend_threshold){
           s.signal = 'sell';
         } else {
           s.signal = null;  // hold
