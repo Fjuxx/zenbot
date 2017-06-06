@@ -16,7 +16,7 @@ module.exports = function container (get, set, clear) {
     },
 
     calculate: function (s) {
-      get('lib.ema')(s, 'trend_ema', s.options.trend_ema)
+      get('lib.ema_ta')(s, 'trend_ema', s.options.trend_ema)
       if (s.options.oversold_rsi) {
         // sync RSI display with oversold RSI periods
         s.options.rsi_periods = s.options.oversold_rsi_periods
