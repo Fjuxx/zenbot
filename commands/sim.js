@@ -154,6 +154,9 @@ module.exports = function container (get, set, clear) {
 
           var out_target = so.filename || 'sim_result.html'
           fs.writeFileSync(out_target, out)
+          var json_output = { periods: s.lookback.slice(0, s.lookback.length - so.min_periods),trades: s.my_trades}
+          var json_out_target = 'output.json'
+          fs.writeFileSync(json_out_target,JSON.stringify(json_output))
           console.log('wrote', out_target)
           process.exit(0)
         }

@@ -8,7 +8,7 @@ module.exports = function container (get, set, clear) {
 
     getOptions: function () {
       this.option('period', 'period length', String, '1h')
-      this.option('min_periods', 'min. number of history periods', Number, 52)
+      this.option('min_periods', 'min. number of history periods', Number, 200)
       this.option('ema_short_period', 'number of periods for the shorter EMA', Number, 12)
       this.option('ema_long_period', 'number of periods for the longer EMA', Number, 26)
       this.option('signal_period', 'number of periods for the signal EMA', Number, 9)
@@ -29,16 +29,18 @@ module.exports = function container (get, set, clear) {
         }
       }
 
-      // compture MACD
-      get('lib.ema')(s, 'ema_short', s.options.ema_short_period)
-      get('lib.ema')(s, 'ema_long', s.options.ema_long_period)
-      if (s.period.ema_short && s.period.ema_long) {
-        s.period.macd = (s.period.ema_short - s.period.ema_long)
-        get('lib.ema')(s, 'signal', s.options.signal_period, 'macd')
-        if (s.period.signal) {
-          s.period.macd_histogram = s.period.macd - s.period.signal
-        }
-      }
+      // // compture MACD
+      // get('lib.ema')(s, 'ema_short', s.options.ema_short_period)
+      // get('lib.ema')(s, 'ema_long', s.options.ema_long_period)
+      // if (s.period.ema_short && s.period.ema_long) {
+      //   s.period.macd = (s.period.ema_short - s.period.ema_long)
+      //   get('lib.ema')(s, 'signal', s.options.signal_period, 'macd')
+      //   if (s.period.signal) {
+      //     s.period.macd_histogram = s.period.macd - s.period.signal
+      //   }
+      // }
+      //(s, macd_key,hist_key, slow_period,fast_period,signal_period)
+      get('lib.macd')(s,'macd','macd_histogram','macd_signal',s.options.ema_long_period,s.options.ema_short_period,s.options.signal_period)
     },
 
     onPeriod: function (s, cb) {
