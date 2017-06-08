@@ -8,7 +8,7 @@ module.exports = function container (get, set, clear) {
 
     getOptions: function () {
       this.option('period', 'period length', String, '1h')
-      this.option('min_periods', 'min. number of history periods', Number, 200)
+      this.option('min_periods', 'min. number of history periods', Number, 52)
       this.option('ema_short_period', 'number of periods for the shorter EMA', Number, 12)
       this.option('ema_long_period', 'number of periods for the longer EMA', Number, 26)
       this.option('signal_period', 'number of periods for the signal EMA', Number, 9)
